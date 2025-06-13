@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
-import { Card, CardContent } from './ui/card';
+import DisplayCards from './ui/display-cards';
+import { Sparkles, FileText, Image } from 'lucide-react';
 
 const Hero = () => {
   const [currentText, setCurrentText] = useState(0);
@@ -22,21 +23,33 @@ const Hero = () => {
     }
   };
 
-  const featuredTools = [
+  const displayCardsData = [
     {
-      title: 'PPT Generator',
-      description: 'Create stunning presentations with AI',
-      icon: '📊',
+      icon: <FileText className="size-4 text-green-300" />,
+      title: "PPT Generator",
+      description: "Create presentations instantly",
+      date: "AI-Powered",
+      iconClassName: "text-green-500",
+      titleClassName: "text-green-500",
+      className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
     },
     {
-      title: 'Report Generator',
-      description: 'Generate comprehensive reports instantly',
-      icon: '📋',
+      icon: <Sparkles className="size-4 text-blue-300" />,
+      title: "Report Generator",
+      description: "Comprehensive reports in seconds",
+      date: "Smart AI",
+      iconClassName: "text-blue-500",
+      titleClassName: "text-blue-500",
+      className: "[grid-area:stack] translate-x-16 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
     },
     {
-      title: 'AI Image Creator',
-      description: 'Create professional images with AI',
-      icon: '🎨',
+      icon: <Image className="size-4 text-purple-300" />,
+      title: "AI Image Creator",
+      description: "Professional visuals made easy",
+      date: "Creative AI",
+      iconClassName: "text-purple-500",
+      titleClassName: "text-purple-500",
+      className: "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10",
     },
   ];
 
@@ -77,7 +90,7 @@ const Hero = () => {
         <Button 
           onClick={() => scrollToSection('featured-tools')}
           size="lg"
-          className="bg-green-500 hover:bg-green-600 text-black font-medium px-8 py-3 rounded-full text-lg"
+          className="bg-green-500 hover:bg-green-600 text-black font-medium px-8 py-3 rounded-full text-lg hover:scale-105 transition-all duration-200"
         >
           Try Free Tools
         </Button>
@@ -85,43 +98,20 @@ const Hero = () => {
           onClick={() => scrollToSection('services')}
           variant="outline"
           size="lg"
-          className="border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-full text-lg"
+          className="border-white text-black bg-white hover:bg-gray-100 hover:text-black px-8 py-3 rounded-full text-lg hover:scale-105 transition-all duration-200"
         >
           Explore Services
         </Button>
       </motion.div>
 
-      {/* Featured Tools Cards */}
+      {/* Display Cards */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
         className="w-full max-w-4xl"
       >
-        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-          {featuredTools.map((tool, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.05, rotateY: 5 }}
-              whileTap={{ scale: 0.95 }}
-              className="min-w-[280px] flex-shrink-0"
-            >
-              <Card className="bg-black/40 border-white/20 backdrop-blur-sm hover:border-green-400/50 transition-all duration-300">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">{tool.icon}</div>
-                  <h3 className="text-xl font-bold text-white mb-2">{tool.title}</h3>
-                  <p className="text-gray-300 text-sm mb-4">{tool.description}</p>
-                  <Button 
-                    size="sm"
-                    className="bg-green-500 hover:bg-green-600 text-black font-medium rounded-full"
-                  >
-                    Try It
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+        <DisplayCards cards={displayCardsData} />
       </motion.div>
 
       {/* Scroll Indicator */}

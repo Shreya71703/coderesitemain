@@ -2,6 +2,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from './ui/card';
+import { SplineScene } from './ui/splite';
+import { Spotlight } from './ui/spotlight';
 
 const About = () => {
   const values = [
@@ -42,9 +44,11 @@ const About = () => {
               About CodeResite
             </h2>
             <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-              We are a team of passionate developers, designers, and innovators dedicated to creating 
-              exceptional digital experiences and solutions. Our mission is to drive innovation forward 
-              through cutting-edge technology and creative problem-solving.
+              We are a team of passionate developers, designers, and innovators committed to creating 
+              exceptional experiences and digital solutions. Our mission is to drive innovation forward 
+              using cutting-edge technologies and creative problem-solving. We empower users with practical 
+              tools that simplify complex tasks — from intelligent automation and AI-powered platforms to 
+              educational utilities and scalable services.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {values.map((value, index) => (
@@ -67,7 +71,7 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Illustration/Visual */}
+          {/* Robot UI - 3D Scene */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -75,19 +79,35 @@ const About = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="w-full h-96 bg-gradient-to-br from-green-400/20 to-blue-500/20 rounded-3xl flex items-center justify-center border border-white/10">
-              <div className="text-center">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="text-8xl mb-4"
-                >
-                  ⚙️
-                </motion.div>
-                <h3 className="text-2xl font-bold text-white">Building the Future</h3>
-                <p className="text-gray-300 mt-2">One innovation at a time</p>
+            <Card className="w-full h-96 bg-black/[0.96] relative overflow-hidden border border-white/10">
+              <Spotlight
+                className="-top-40 left-0 md:left-60 md:-top-20"
+                fill="white"
+              />
+              
+              <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center p-8">
+                <div className="mb-4">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="text-8xl mb-4"
+                  >
+                    🤖
+                  </motion.div>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">AI-Powered Innovation</h3>
+                <p className="text-gray-300">Building the future with intelligent automation</p>
               </div>
-            </div>
+              
+              {/* Fallback for when Spline doesn't load */}
+              <div className="absolute inset-0">
+                <div className="w-full h-full bg-gradient-to-br from-green-400/10 to-blue-500/10 rounded-lg flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4 opacity-20">⚡</div>
+                  </div>
+                </div>
+              </div>
+            </Card>
           </motion.div>
         </div>
       </div>

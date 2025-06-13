@@ -57,18 +57,44 @@ const FeaturedTools = () => {
     {
       id: 'cybersecurity',
       title: '🔐 Cybersecurity',
-      signatureTool: {
-        title: 'Recon Suite',
-        description: 'Comprehensive reconnaissance tools including subfinder and advanced scanning',
-        icon: '🛡️',
-        featured: true,
-      },
-      tools: [
-        { title: 'Recon Tools', description: 'Subdomain and asset discovery', icon: '🔍' },
-        { title: 'Port Scanners', description: 'Masscan, Nmap, RustScan', icon: '🔌' },
-        { title: 'Vulnerability Scanners', description: 'Nuclei, Nikto, Sn1per', icon: '🛡️' },
-        { title: 'Security Audit', description: 'Comprehensive security testing', icon: '📊' },
-      ],
+      signatureTool: null,
+      tools: [],
+      customContent: (
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto"
+        >
+          <Card className="bg-black/40 border-white/20 backdrop-blur-sm">
+            <CardContent className="p-8">
+              <div className="text-6xl mb-6">🛡️</div>
+              <h3 className="text-2xl font-bold text-white mb-4">Cybersecurity Solutions</h3>
+              <p className="text-gray-300 mb-6 text-lg leading-relaxed">
+                We offer cyber security consultancy, tailored solutions, and online training. 
+                Our comprehensive approach ensures your digital assets are protected with cutting-edge 
+                security measures and expert guidance.
+              </p>
+              <p className="text-gray-400 mb-8">
+                For more information, download our brochure.
+              </p>
+              <Button 
+                onClick={() => {
+                  // Create a link to download the PDF
+                  const link = document.createElement('a');
+                  link.href = '/CyberSecurity.pdf'; // This should be placed in public folder
+                  link.download = 'CyberSecurity.pdf';
+                  link.click();
+                }}
+                className="bg-green-500 hover:bg-green-600 text-black font-medium px-8 py-3 rounded-full hover:scale-105 transition-all duration-200"
+              >
+                Download Brochure
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+      ),
     },
   ];
 
@@ -106,61 +132,70 @@ const FeaturedTools = () => {
                 {section.title}
               </h3>
               
-              {/* Signature Tool - Larger Card */}
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="max-w-2xl mx-auto mb-8"
-              >
-                <Card className="bg-gradient-to-br from-green-500/20 to-blue-500/20 border-green-400/50 backdrop-blur-sm">
-                  <CardContent className="p-8 text-center">
-                    <div className="text-6xl mb-4">{section.signatureTool.icon}</div>
-                    <h4 className="text-2xl font-bold text-white mb-3">
-                      {section.signatureTool.title}
-                      <span className="ml-2 px-2 py-1 text-xs bg-green-500 text-black rounded-full">
-                        Signature Tool
-                      </span>
-                    </h4>
-                    <p className="text-gray-300 mb-6">{section.signatureTool.description}</p>
-                    <Button 
-                      size="lg"
-                      className="bg-green-500 hover:bg-green-600 text-black font-medium px-8 py-3 rounded-full"
+              {/* Custom Content for Cybersecurity */}
+              {section.customContent ? (
+                section.customContent
+              ) : (
+                <>
+                  {/* Signature Tool - Larger Card */}
+                  {section.signatureTool && (
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="max-w-2xl mx-auto mb-8"
                     >
-                      Try Now
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
+                      <Card className="bg-gradient-to-br from-green-500/20 to-blue-500/20 border-green-400/50 backdrop-blur-sm">
+                        <CardContent className="p-8 text-center">
+                          <div className="text-6xl mb-4">{section.signatureTool.icon}</div>
+                          <h4 className="text-2xl font-bold text-white mb-3">
+                            {section.signatureTool.title}
+                            <span className="ml-2 px-2 py-1 text-xs bg-green-500 text-black rounded-full">
+                              Signature Tool
+                            </span>
+                          </h4>
+                          <p className="text-gray-300 mb-6">{section.signatureTool.description}</p>
+                          <Button 
+                            size="lg"
+                            className="bg-green-500 hover:bg-green-600 text-black font-medium px-8 py-3 rounded-full hover:scale-105 transition-all duration-200"
+                          >
+                            Try Now
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  )}
 
-            {/* Tools Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {section.tools.map((tool, toolIndex) => (
-                <motion.div
-                  key={toolIndex}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: toolIndex * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Card className="bg-black/40 border-white/20 backdrop-blur-sm hover:border-green-400/50 transition-all duration-300 h-full">
-                    <CardContent className="p-6 text-center h-full flex flex-col justify-between">
-                      <div>
-                        <div className="text-4xl mb-4">{tool.icon}</div>
-                        <h4 className="text-lg font-bold text-white mb-3">{tool.title}</h4>
-                        <p className="text-gray-400 text-sm mb-4">{tool.description}</p>
-                      </div>
-                      <Button 
-                        size="sm"
-                        className="bg-green-500 hover:bg-green-600 text-black font-medium rounded-full w-full"
+                  {/* Tools Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {section.tools.map((tool, toolIndex) => (
+                      <motion.div
+                        key={toolIndex}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: toolIndex * 0.1 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.05, y: -5 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-                        Try It
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                        <Card className="bg-black/60 border-white/20 backdrop-blur-sm hover:border-green-400/50 transition-all duration-300 h-full">
+                          <CardContent className="p-6 text-center h-full flex flex-col justify-between">
+                            <div>
+                              <div className="text-4xl mb-4">{tool.icon}</div>
+                              <h4 className="text-lg font-bold text-white mb-3">{tool.title}</h4>
+                              <p className="text-gray-300 text-sm mb-4">{tool.description}</p>
+                            </div>
+                            <Button 
+                              size="sm"
+                              className="bg-green-500 hover:bg-green-600 text-black font-medium rounded-full w-full hover:scale-105 transition-all duration-200"
+                            >
+                              Try It
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </motion.div>
         ))}

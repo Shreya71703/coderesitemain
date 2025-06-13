@@ -110,8 +110,8 @@ const Pricing = () => {
               className="relative"
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-green-500 text-black px-4 py-2 rounded-full text-sm font-bold">
+                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10">
+                  <span className="bg-green-500 text-black px-4 py-2 rounded-full text-sm font-bold shadow-lg">
                     Most Popular
                   </span>
                 </div>
@@ -119,7 +119,7 @@ const Pricing = () => {
               
               <Card className={`bg-black/40 backdrop-blur-sm border-2 transition-all duration-300 h-full ${
                 plan.popular 
-                  ? 'border-green-400/70 shadow-lg shadow-green-400/20' 
+                  ? 'border-green-400/70 shadow-lg shadow-green-400/20 relative pt-8' 
                   : 'border-white/20 hover:border-green-400/50'
               }`}>
                 <CardContent className="p-8 h-full flex flex-col">
@@ -148,7 +148,7 @@ const Pricing = () => {
                   </div>
 
                   <Button 
-                    className={`w-full rounded-full font-medium ${
+                    className={`w-full rounded-full font-medium hover:scale-105 transition-all duration-200 ${
                       plan.popular
                         ? 'bg-green-500 hover:bg-green-600 text-black'
                         : 'bg-transparent border border-green-400 text-green-400 hover:bg-green-400 hover:text-black'

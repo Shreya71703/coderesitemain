@@ -2,15 +2,28 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    // If we're not on home page, navigate home first
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setIsMenuOpen(false);
   };
@@ -19,8 +32,8 @@ const Navbar = () => {
     { label: 'Home', action: () => scrollToSection('hero') },
     { label: 'About Us', action: () => scrollToSection('about') },
     { label: 'Our Services', action: () => scrollToSection('services') },
-    { label: 'Founders', action: () => window.location.href = '/founders' },
-    { label: 'Certificate Validator', action: () => window.location.href = '/validator' },
+    { label: 'Founders', action: () => navigate('/founders') },
+    { label: 'Certificate Validator', action: () => navigate('/validator') },
   ];
 
   const toolsItems = [
@@ -38,7 +51,8 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500"
+              className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500 cursor-pointer"
+              onClick={() => scrollToSection('hero')}
             >
               CodeResite
             </motion.div>
@@ -76,7 +90,7 @@ const Navbar = () => {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-black/90 border border-white/20 ring-1 ring-black ring-opacity-5"
+                    className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-black/90 border border-white/20 ring-1 ring-black ring-opacity-5 z-50"
                   >
                     <div className="py-1 grid grid-cols-1 gap-1">
                       {toolsItems.map((tool, index) => (
@@ -99,7 +113,7 @@ const Navbar = () => {
           <div className="hidden md:block">
             <Button 
               onClick={() => scrollToSection('featured-tools')}
-              className="bg-green-500 hover:bg-green-600 text-black font-medium px-6 py-2 rounded-full transition-colors duration-200"
+              className="bg-green-500 hover:bg-green-600 text-black font-medium px-6 py-2 rounded-full transition-all duration-200 hover:scale-105"
             >
               Get Started
             </Button>

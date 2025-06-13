@@ -3,34 +3,45 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const Services = () => {
+  const navigate = useNavigate();
+
   const services = [
     {
       title: 'AI Solutions',
       description: 'Custom chatbots, personalized agents, intelligent automation, and machine learning implementations.',
       icon: '🤖',
       features: ['Custom AI Models', 'Chatbot Development', 'Process Automation', 'ML Integration'],
+      slug: 'ai-solutions',
     },
     {
       title: 'Web Services',
       description: 'Dynamic, responsive websites and web applications built with modern technologies.',
       icon: '🌐',
       features: ['Responsive Design', 'Full-Stack Development', 'E-commerce Solutions', 'Performance Optimization'],
+      slug: 'web-services',
     },
     {
       title: 'App Development',
       description: 'Native iOS/Android applications and cross-platform mobile solutions.',
       icon: '📱',
       features: ['iOS Development', 'Android Development', 'Cross-Platform Apps', 'App Store Deployment'],
+      slug: 'app-development',
     },
     {
       title: 'Cybersecurity',
       description: 'Security audits, penetration testing, vulnerability assessments, and asset protection.',
       icon: '🔒',
       features: ['Security Audits', 'Penetration Testing', 'Vulnerability Assessment', 'Security Consulting'],
+      slug: 'cybersecurity',
     },
   ];
+
+  const handleViewMore = (slug: string) => {
+    navigate(`/services/${slug}`);
+  };
 
   return (
     <section id="services" className="py-20 px-4">
@@ -79,7 +90,8 @@ const Services = () => {
                   </div>
                   
                   <Button 
-                    className="bg-green-500 hover:bg-green-600 text-black font-medium rounded-full w-full"
+                    onClick={() => handleViewMore(service.slug)}
+                    className="bg-green-500 hover:bg-green-600 text-black font-medium rounded-full w-full hover:scale-105 transition-all duration-200"
                   >
                     View More
                   </Button>

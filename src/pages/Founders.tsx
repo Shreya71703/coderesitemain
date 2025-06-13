@@ -3,16 +3,19 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 import Layout from '@/components/Layout';
 
 const Founders = () => {
+  const navigate = useNavigate();
+
   const founders = [
     {
       name: 'Balkrishna Garg',
       role: 'Founder & CEO',
       description: 'Certified Ethical Hacker with expertise in Linux, Arch, Offensive & Defensive Security',
       skills: ['Ethical Hacking', 'Linux', 'Arch Linux', 'Cybersecurity', 'Penetration Testing'],
-      avatar: '👨‍💻',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
       social: {
         linkedin: '#',
         github: '#',
@@ -24,7 +27,7 @@ const Founders = () => {
       role: 'Founder & Director',
       description: 'MediaWiki Contributor, MERN Stack Developer, and AI Engineer with innovative solutions',
       skills: ['MERN Stack', 'AI Engineering', 'MediaWiki', 'Full-Stack Development', 'Machine Learning'],
-      avatar: '👨‍🔬',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
       social: {
         linkedin: '#',
         github: '#',
@@ -36,7 +39,7 @@ const Founders = () => {
       role: 'Co-founder & MD',
       description: 'GDG Prayagraj Ambassador, Hackathon Winner, Flutter/Dart Developer',
       skills: ['Flutter', 'Dart', 'Mobile Development', 'GDG Ambassador', 'Hackathon Winner'],
-      avatar: '👨‍🚀',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
       social: {
         linkedin: '#',
         github: '#',
@@ -48,7 +51,7 @@ const Founders = () => {
       role: 'COO',
       description: 'Next.js expert, Python specialist in Gen AI/ML/DL, and Hackathon Winner',
       skills: ['Next.js', 'Python', 'AI/ML/DL', 'Generative AI', 'Full-Stack Development'],
-      avatar: '👨‍💼',
+      avatar: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=150&h=150&fit=crop&crop=face',
       social: {
         linkedin: '#',
         github: '#',
@@ -60,7 +63,7 @@ const Founders = () => {
       role: 'CTO',
       description: 'Full-Stack Developer, Python & ML Enthusiast, GSSoC\'24 Contributor',
       skills: ['Full-Stack', 'Python', 'Machine Learning', 'Open Source', 'GSSoC Contributor'],
-      avatar: '👨‍🔧',
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face',
       social: {
         linkedin: '#',
         github: '#',
@@ -72,7 +75,7 @@ const Founders = () => {
       role: 'CMO',
       description: 'Data Analytics expert, Data Visualization specialist, Microsoft Products Expert',
       skills: ['Data Analytics', 'Data Visualization', 'Microsoft Products', 'Business Intelligence', 'Marketing'],
-      avatar: '👨‍📊',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
       social: {
         linkedin: '#',
         github: '#',
@@ -80,6 +83,16 @@ const Founders = () => {
       },
     },
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    navigate('/');
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
 
   return (
     <Layout>
@@ -110,7 +123,13 @@ const Founders = () => {
               >
                 <Card className="bg-black/40 border-white/20 backdrop-blur-sm hover:border-green-400/50 transition-all duration-300 h-full">
                   <CardContent className="p-6 text-center h-full flex flex-col">
-                    <div className="text-6xl mb-4">{founder.avatar}</div>
+                    <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-2 border-green-400/50">
+                      <img 
+                        src={founder.avatar} 
+                        alt={founder.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <h3 className="text-xl font-bold text-white mb-2">{founder.name}</h3>
                     <p className="text-green-400 font-medium mb-4">{founder.role}</p>
                     <p className="text-gray-300 text-sm mb-6 flex-grow">{founder.description}</p>
@@ -168,15 +187,15 @@ const Founders = () => {
           >
             <div className="space-y-4">
               <Button 
-                onClick={() => window.location.href = '/'}
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-black mr-4"
+                onClick={() => navigate('/')}
+                className="bg-green-500 hover:bg-green-600 text-black font-medium mr-4 hover:scale-105 transition-all duration-200"
               >
                 Back to Home
               </Button>
               <Button 
-                onClick={() => document.getElementById('featured-tools')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-green-500 hover:bg-green-600 text-black font-medium"
+                onClick={() => scrollToSection('featured-tools')}
+                variant="outline"
+                className="border-white text-black bg-white hover:bg-gray-100 hover:text-black hover:scale-105 transition-all duration-200"
               >
                 View All Tools
               </Button>
